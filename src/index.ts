@@ -10,17 +10,6 @@ app.use(logger("dev"));
 // JSON body parser middleware
 app.use(express.json());
 
-// Error handler middleware
-app.use((err: any, req: any, res: any, next: any) => {
-  console.error(err);
-  res.status(500).json({ message: "Internal server error" });
-});
-
-// 404 handler middleware
-app.use((req, res) => {
-  res.status(404).json({ message: "Resource not found" });
-});
-
 // Validation middleware
 import { body, validationResult } from "express-validator";
 
@@ -284,6 +273,17 @@ app.delete("/todos/:id", (req, res) => {
   } catch (error) {
     return res.status(401).json({ message: "Invalid token" });
   }
+});
+
+// Error handler middleware
+app.use((err: any, req: any, res: any, next: any) => {
+  console.error(err);
+  res.status(500).json({ message: "Internal server error" });
+});
+
+// 404 handler middleware
+app.use((req, res) => {
+  res.status(404).json({ message: "Resource not found" });
 });
 
 app.listen(3000, () => {
