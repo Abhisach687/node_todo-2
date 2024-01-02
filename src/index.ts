@@ -11,7 +11,7 @@ app.use(logger("dev"));
 app.use(express.json());
 
 // Error handler middleware
-app.use((err: any, req: any, res: any) => {
+app.use((err: any, req: any, res: any, next: any) => {
   console.error(err);
   res.status(500).json({ message: "Internal server error" });
 });
