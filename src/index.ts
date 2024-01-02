@@ -106,6 +106,11 @@ app.post(
   "/refresh",
   validateRefresh,
   (req: express.Request, res: express.Response) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
     const { refreshToken } = req.body;
 
     if (!refreshToken || !refreshTokens[refreshToken]) {
@@ -182,6 +187,10 @@ app.post(
   "/todos",
   validateTodo,
   (req: express.Request, res: express.Response) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
     const token = req.headers.authorization?.split(" ")[1];
     if (!token) {
       return res.status(401).json({ message: "Unauthorized" });
@@ -207,7 +216,7 @@ app.post(
       return res.status(401).json({ message: "Invalid token" });
     }
   }
-);
+); // Add closing parenthesis here
 
 app.put(
   "/todos/:id",
