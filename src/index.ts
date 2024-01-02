@@ -33,7 +33,7 @@ const validateTodo = [
 ];
 
 const validateUpdateTodo = [
-  body("title").optional().notEmpty().withMessage("Title cannot be empty"),
+  body("title").notEmpty().withMessage("Title is required"),
   body("completed")
     .optional()
     .isBoolean()
